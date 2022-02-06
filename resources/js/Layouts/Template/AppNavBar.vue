@@ -72,7 +72,7 @@ export default {
     },
     methods : {
         logoutAdmin(){
-            this.$admin.post('/api/logout').then((response) => {
+            this.$admin.post('/logout').then((response) => {
                 localStorage.removeItem("token")
                 this.$router.push('/login')
             })

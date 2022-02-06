@@ -5,7 +5,7 @@
             outlined
         >
             <v-card-text>
-               <h1>Tangina mo roding</h1>
+               <h1>Tangina mo kenloi</h1>
             </v-card-text>
         </v-card>
     </div>
@@ -13,7 +13,19 @@
 
 <script>
 export default {
-    
+    data : () => ({
+        user : {}
+    }),
+    mounted() {
+        this.initialize()
+    },
+    methods : {
+        initialize() {
+            this.$admin.get('/profile').then(({data}) => {
+                this.user = data
+            })
+        }
+    }
    
 };
 </script>

@@ -21,7 +21,7 @@
                             dark
                             flat
                         >
-                            <v-toolbar-title>Reservation System</v-toolbar-title>
+                            <v-toolbar-title>Library System</v-toolbar-title>
                            
                         </v-toolbar>
                         <v-card-text>
@@ -76,7 +76,7 @@ export default {
                         alert("Username or password are incorrect")
                     }
                     else{
-                        localStorage.setItem('token',response.token)
+                        localStorage.setItem('token',response.data.token)
                         this.$router.push('/dashboard')
                     }
                 })

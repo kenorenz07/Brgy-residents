@@ -3,7 +3,7 @@ import axios from "axios";
 import router from './router'
 // import Notification from "../Mixins/Snackbar.vue";
 
-const baseURL = '';
+const baseURL = '/api';
 
 const httpClient = axios.create({
   baseURL,

@@ -5,10 +5,7 @@
     >
         <v-container >
             <transition 
-                name="custom-classes-transition"
-                enter-active-class="animated slideInRight"
-                leave-active-class="animated slideOutLeft"
-                mode="out-in"
+                
             >
                 <router-view> </router-view>
             </transition>

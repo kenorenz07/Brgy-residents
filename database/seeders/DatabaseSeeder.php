@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 use function PHPSTORM_META\map;
 
@@ -22,5 +23,9 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt(123123),
             'email' => 'admin@lang.com'
         ]);
+
+        Artisan::call('passport:install');
+        Artisan::call('storage:link');
+        Artisan::call('key:generate');
     }
 }
