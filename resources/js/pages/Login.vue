@@ -17,11 +17,11 @@
                     >
                         <v-card class="elevation-12">
                         <v-toolbar
-                            color="light-blue"
+                            color="light-green"
                             dark
                             flat
                         >
-                            <v-toolbar-title>Library System</v-toolbar-title>
+                            <v-toolbar-title>Residential Records</v-toolbar-title>
                            
                         </v-toolbar>
                         <v-card-text>
@@ -48,7 +48,8 @@
                         </v-card-text>
                         <v-card-actions >
                             <v-spacer></v-spacer>
-                            <v-btn color="light-blue" @click="login_admin()">Login</v-btn>
+                            <v-btn color="warning">Create new Account</v-btn>
+                            <v-btn @click="login_admin()">Login</v-btn>
                         </v-card-actions>
                         </v-card>
                     </v-flex>

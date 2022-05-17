@@ -10,7 +10,10 @@ export default new Vuetify({
             customProperties: true
         },
         themes: {
-           
+            light: {
+                primary: '#568203', 
+                secondary: '#ACE1AF',
+            },
         },
     },
 })

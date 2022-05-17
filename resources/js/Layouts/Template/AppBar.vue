@@ -5,23 +5,23 @@
         <v-spacer></v-spacer>
          <div>
 
-            <v-tooltip v-if="!$vuetify.theme.dark" bottom>
+            <!-- <v-tooltip v-if="!$vuetify.theme.dark" bottom>
                 <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="primary" small fab @click="darkMode">
                     <v-icon class="mr-1" color="black">mdi-weather-night</v-icon>
                 </v-btn>
                 </template>
                 <span>Dark Mode On</span>
-            </v-tooltip>
+            </v-tooltip> -->
 
-            <v-tooltip v-else bottom>
+            <!-- <v-tooltip v-else bottom>
                 <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="primary" small fab @click="darkMode">
                     <v-icon color="yellow">mdi-white-balance-sunny</v-icon>
                 </v-btn>
                 </template>
                 <span>Dark Mode Off</span>
-            </v-tooltip>
+            </v-tooltip> -->
 
         </div>
     </v-app-bar>

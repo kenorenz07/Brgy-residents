@@ -5,7 +5,7 @@
         persistent
     >
         <v-list-item class="px-2 pt-2">
-            <v-img class="at-logo" src="/images/lenzy_logo_small.png"></v-img>
+            <v-img class="at-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Calbayog_City_seal_2.svg/478px-Calbayog_City_seal_2.svg.png"></v-img>
         </v-list-item>
         <v-list >
             <v-list-item

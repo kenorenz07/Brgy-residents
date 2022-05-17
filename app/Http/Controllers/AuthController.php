@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "email" => "required",
+            "password" => "required",
+        ]);
+
+        $new_sec = User::create([
+            "name" => $request->name,
+            "email" => $request->email,
+            "password" => $request->password,
+        ]);
+
+        return $new_sec;
+    }
+
     public function login(Request $request)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
