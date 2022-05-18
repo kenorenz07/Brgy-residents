@@ -76,7 +76,7 @@
             :form="household"
             :dialogState="addition_edition_dailog"
             @close="(addition_edition_dailog = false), initialize()"
-            @save="(addition_edition_dailog = false)"
+            @save="(addition_edition_dailog = false), saveHousehold()"
         />
     </div>
 </template>
@@ -127,6 +127,11 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
                 this.households = data
             })
         },
+        saveHousehold() {
+            this.$admin.post('/household/create',this.household).then(({data}) => {
+                this.initialize()
+            })
+        }
 
     }
   }

@@ -64,6 +64,7 @@
           <v-btn
             color="blue darken-1"
             text
+            @click="$emit('save')"
           >
             Save
           </v-btn>
