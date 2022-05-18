@@ -28,7 +28,7 @@
                             <span>Double click to select location or Search</span>
                         </v-flex>
                         <div style="width:100%;height: 500px">
-                            <LocationSelector v-model="form.location" :key="form.key" />
+                            <LocationSelector v-model="form.location" :key="form.key" :defaultLocation="user_location" />
                         </div>
                     </v-sheet>
                     <v-text-field
@@ -91,7 +91,14 @@ export default {
                 location: {
                     address : ''
                 },
-                key: 1
+                key: 3
+            }
+        },
+        user_location : {
+            type: Object,
+            default :{
+              lat: 12.067878,
+              lng: 124.595390
             }
         }
     },

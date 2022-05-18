@@ -41,6 +41,7 @@
                         dark
                         color="success"
                         small
+                        @click="$router.push('household/'+item.id)"
                     >
                         <v-icon >
                             mdi-eye
@@ -63,6 +64,7 @@
                         dark
                         color="error"
                         small
+                        @click="deleteHousehold(item)"
                     >
                         <v-icon >
                             mdi-delete
@@ -74,6 +76,7 @@
 
         <HouseholdForm
             :form="household"
+            :user_location="user_location"
             :dialogState="addition_edition_dailog"
             @close="(addition_edition_dailog = false), initialize()"
             @save="(addition_edition_dailog = false), saveHousehold()"
@@ -93,8 +96,13 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
             location: {
                 address : ''
             },
-            key: 1
+            key: 3
         },
+        user : {
+            lat : null,
+            lng : null
+        },
+        user_location : {},
         addition_edition_dailog : false,
         search: '',
         headers: [
@@ -103,19 +111,7 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
           { text: '# of residents', value: 'residents' },
           { text: 'Actions', value: 'actions' },
         ],
-        households: [
-          {
-            number: 'H-421',
-            address: 'Lorem ipsum ee',
-            residents : [1,2,2,2,2,]
-          },
-            {
-            number: 'H-421',
-            address: 'Lorem ipsum ee',
-            residents : [1,2,2,2,2,]
-          },
-          
-        ],
+        households: [],
       }
     },
     mounted () {
@@ -126,9 +122,25 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
             this.$admin.get('/household/index').then(({data}) =>{
                 this.households = data
             })
+
+            this.$admin.get('/profile').then(({data}) =>{
+                this.user = data
+                this.user_location = {
+                    lat : data.lat,
+                    lng : data.long
+                }
+            })
         },
         saveHousehold() {
             this.$admin.post('/household/create',this.household).then(({data}) => {
+                this.initialize()
+            })
+        },
+        async deleteHousehold(household){
+            let confirm = await this.deleteRecord("Household: "+household.number +" and residents");
+            if (!confirm) return;
+
+            this.$admin.delete(`household/delete/${household.id}`).then(({data}) => {
                 this.initialize()
             })
         }

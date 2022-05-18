@@ -4,8 +4,8 @@
     @dblclick="onMapClick"
     :zoom="zoom"
     :center="[
-      position.lat || userLocation.lat || defaultLocation.lat,
-      position.lng || userLocation.lng || defaultLocation.lng
+      household_location.lat || position.lat || userLocation.lat || defaultLocation.lat,
+      household_location.lng || position.lng || userLocation.lng || defaultLocation.lng
     ]"
   >
     <l-tile-layer
@@ -23,6 +23,9 @@
       @dragend="dragging = false"
     >
       <l-tooltip :content="tooltipContent" :options="{ permanent: true }" />
+    </l-marker>
+    <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker.location" :icon="getExistingIcon()" >
+      <l-tooltip :content="marker.description" />
     </l-marker>
   </l-map>
 </template>
@@ -48,9 +51,20 @@ export default {
     defaultLocation: {
       type: Object,
       default: () => ({
-        lat: 8.9806,
-        lng: 38.7578
+        lat: 12.067878,
+        lng: 124.595390
       })
+    },
+    household_location : {
+      type: Object,
+      default: () => ({
+        lat: 12.067878,
+        lng: 124.595390
+      })
+    },
+    household_id : {
+      type: Number,
+      default : null
     }
   },
   data() {
@@ -75,12 +89,18 @@ export default {
         url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       },
       zoom: 18,
-      dragging: false
+      dragging: false,
+      markers: []
     };
   },
   mounted() {
     this.getUserPosition();
     this.$refs.map.mapObject.on("geosearch/showlocation", this.onSearch);
+    setTimeout(() => {
+        //mapObject is a property that is part of leaflet
+        this.$refs.map.mapObject.invalidateSize(); 
+    }, 100);
+    this.getMarkers()
   },
 
   watch: {
@@ -89,6 +109,13 @@ export default {
       async handler(value) {
         this.address = await this.getAddress();
         this.$emit("input", { position: value, address: this.address });
+      }
+    },
+    household_id : {
+      handler(value){
+        this.position = this.household_location;
+
+        this.getMarkers()
       }
     }
   },
@@ -140,6 +167,27 @@ export default {
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
+    },
+    getExistingIcon() {
+          return L.icon({
+            // iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            conSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    },
+    getMarkers(){
+      let params = {} 
+      if(this.household_id)
+        params.household_id = this.household_id
+
+      this.$admin.get(`household/markers`,{params}).then(({data}) => {
+        this.markers = data
+      })
     },
     async getUserPosition() {
       if (navigator.geolocation) {

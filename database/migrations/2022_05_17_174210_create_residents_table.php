@@ -24,6 +24,7 @@ class CreateResidentsTable extends Migration
             $table->integer('age');
             $table->enum('civil_status',["married", "single", "divorced", "widowed","separated"]);
             $table->string('contact_number');
+            $table->enum('gender',["Male", "Female"]);
             $table->string('purok');
             $table->boolean('vaccinated');
             $table->string('vaccine_name')->nullable();

@@ -6,6 +6,7 @@ import Register from '../pages/Register.vue';
 import Main from '../pages/Main.vue';
 import Dashboard from '../pages/Admin/Dashboard.vue';
 import Households from '../pages/Admin/Households.vue';
+import Household from '../pages/Admin/View/Household.vue';
 
 import Map from '../pages/Map.vue'
 
@@ -32,6 +33,11 @@ const router = new VueRouter({
                     path: '/households',
                     name: 'households',
                     component: Households,
+                },
+                {
+                    path: '/household/:id',
+                    name: 'household',
+                    component: Household,
                 },
                
             ]

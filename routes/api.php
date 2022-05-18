@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HouseholdController;
+use App\Http\Controllers\ResidentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,10 +30,18 @@ Route::group(['middleware' => ['auth:api']], function () {
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // Household Managin (incomplete with location)
+    // Household Managin 
     Route::get('household/index',[HouseholdController::class,'index']);
+    Route::get('household/markers',[HouseholdController::class,'getMarkers']);
     Route::get('household/show/{household}',[HouseholdController::class,'show']);
     Route::post('household/create',[HouseholdController::class,'create']);
     Route::put('household/update/{household}',[HouseholdController::class,'update']);
-    Route::delete('household/delete/{household}/',[HouseholdController::class,'delete']);
+    Route::delete('household/delete/{household}',[HouseholdController::class,'delete']);
+    //Resident
+    Route::post('household/{household}/resident',[ResidentController::class,'create']);
+    Route::get('resident/show/{resident}',[ResidentController::class,'show']);
+    Route::put('resident/update/{resident}',[ResidentController::class,'update']);
+    Route::delete('resident/delete/{resident}',[ResidentController::class,'delete']);
+    
+
 });
