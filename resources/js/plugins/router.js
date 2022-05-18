@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Login from '../pages/Login.vue';
+import Register from '../pages/Register.vue';
 import Main from '../pages/Main.vue';
 import Dashboard from '../pages/Admin/Dashboard.vue';
 
@@ -31,6 +32,14 @@ const router = new VueRouter({
             path: '/login',
             name: 'login',
             component: Login,
+            meta: {
+                requiresAuth: false
+            },
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register,
             meta: {
                 requiresAuth: false
             },

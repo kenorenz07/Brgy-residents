@@ -48,7 +48,7 @@
                         </v-card-text>
                         <v-card-actions >
                             <v-spacer></v-spacer>
-                            <v-btn color="warning">Create new Account</v-btn>
+                            <v-btn color="warning" @click="$router.push('/register')">Create new Account</v-btn>
                             <v-btn @click="login_admin()">Login</v-btn>
                         </v-card-actions>
                         </v-card>

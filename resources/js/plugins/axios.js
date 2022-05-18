@@ -40,6 +40,10 @@ httpClient.interceptors.response.use((response) => {
             break;
         case 422:
             messages.push(error.response.data.message)
+
+            Object.entries(error.response.data.errors).forEach((err) => {
+                messages.push(err[1])
+            })
             break;
         default:
             messages.push('Opps, something went wrong in processing your request.')

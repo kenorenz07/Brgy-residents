@@ -16,7 +16,7 @@ class AuthController extends Controller
         $request->validate([
             "name" => "required",
             "email" => "required",
-            "password" => "required",
+            "password" => "required|confirmed",
         ]);
 
         $new_sec = User::create([
