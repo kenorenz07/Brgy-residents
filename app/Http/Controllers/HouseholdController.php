@@ -20,6 +20,35 @@ class HouseholdController extends Controller
         return $household->load('residents');
     }
 
+    public function getMarkers(Request $request)
+    {
+        $secretary = $request->user();
+        $households = $secretary->households();
+
+        if($request->query('household_id'))
+            $households->where('id','!=',$request->query('household_id'));
+
+        $markers = [];
+
+        foreach($households->get() as $household) {
+
+            $seniors = $household->residents()->where('is_senior_member',1)->count();
+            $four_members = $household->residents()->where('is_four_pis_member',1)->count();
+            $vaccinated = $household->residents()->where('vaccinated',1)->count();
+            
+            $markers[] = [
+                "id" => $household->id,
+                "location" => [
+                    "lng" => $household->long,
+                    "lat" => $household->lat,
+                ],
+                "description" => "<strong>".$household->address."</strong> <hr/><strong> Household :".$household->number .", Residents:".count($household->residents)." (".$seniors ." senior/s, ".$four_members." 4ps member, " .$vaccinated." vaccinated) </strong>"
+            ];
+        }
+        
+        return $markers;
+    }
+
     public function create(Request $request)
     {
         $secretary = $request->user();
