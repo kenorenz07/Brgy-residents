@@ -29,10 +29,14 @@ class HouseholdController extends Controller
     {
         $request->validate([
             "number" => "required",
+            "location" => "required"
         ]);
 
         $new_household = $this->secretary->households()->create([
-            "number" => $request->number
+            "number" => $request->number,
+            "address" => $request->location['address'],
+            "long" => $request->location['position']['lng'],
+            "lat" => $request->location['position']['lat'],
         ]);
 
         return $new_household;

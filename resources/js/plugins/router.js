@@ -6,6 +6,8 @@ import Register from '../pages/Register.vue';
 import Main from '../pages/Main.vue';
 import Dashboard from '../pages/Admin/Dashboard.vue';
 
+import Map from '../pages/Map.vue'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -40,6 +42,14 @@ const router = new VueRouter({
             path: '/register',
             name: 'register',
             component: Register,
+            meta: {
+                requiresAuth: false
+            },
+        },
+        {
+            path: '/map',
+            name: 'map',
+            component: Map,
             meta: {
                 requiresAuth: false
             },

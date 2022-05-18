@@ -16,6 +16,7 @@ class CreateHouseholdsTable extends Migration
         Schema::create('households', function (Blueprint $table) {
             $table->id();
             $table->string('number');
+            $table->string('address');
             $table->string('long')->nullable();
             $table->string('lat')->nullable();
             $table->foreignId('user_id')->constrained('users');

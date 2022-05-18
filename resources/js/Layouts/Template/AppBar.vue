@@ -1,7 +1,7 @@
 <template>
     <v-app-bar app absolute  color="primary" class="text-white">
         <v-app-bar-nav-icon @click.stop="$emit('changeStatusDrawer')" color="white"></v-app-bar-nav-icon>
-        <v-toolbar-title>Ding DOng</v-toolbar-title>
+        <v-toolbar-title>Brgy Residents</v-toolbar-title>
         <v-spacer></v-spacer>
          <div>
 

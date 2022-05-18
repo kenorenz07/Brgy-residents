@@ -15,14 +15,18 @@ class AuthController extends Controller
     {
         $request->validate([
             "name" => "required",
-            "email" => "required",
+            "email" => "required|email",
             "password" => "required|confirmed",
+            "location" => "required"
         ]);
 
         $new_sec = User::create([
             "name" => $request->name,
             "email" => $request->email,
-            "password" => $request->password,
+            "password" => bcrypt($request->password),
+            "address" => $request->location['address'],
+            "long" => $request->location['position']['lng'],
+            "lat" => $request->location['position']['lat'],
         ]);
 
         return $new_sec;

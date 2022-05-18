@@ -3,8 +3,8 @@
     <app-nav-bar :mini="mini" @changeStatusDrawer="mini = !mini"></app-nav-bar>
 
     <app-bar @changeStatusDrawer="mini = !mini"></app-bar>
-    <confirm ref="confirm"></confirm>
-    <notification ref="notify"></notification>
+    <!-- <confirm ref="confirm"></confirm>
+    <notification ref="notify"></notification> -->
     <app-main></app-main>
   </v-app>
 </template>
@@ -27,10 +27,10 @@
       confirm,
       notification
     },
-    mounted() {
-      this.$root.$confirm = this.$refs.confirm.open
-      this.$root.$notify = this.$refs.notify.open
-    }
+    // mounted() {
+    //   this.$root.$confirm = this.$refs.confirm.open
+    //   this.$root.$notify = this.$refs.notify.open
+    // }
   }
 </script>
 <style lang="scss">

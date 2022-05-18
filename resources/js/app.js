@@ -21,6 +21,8 @@
  import toast from './plugins/toast';
  import Axios from './plugins/axios';
  
+ import "leaflet/dist/leaflet.css";
+import "leaflet-geosearch/dist/geosearch.css";
  
  import App from './layouts/App.vue';
  import moment from 'moment'
