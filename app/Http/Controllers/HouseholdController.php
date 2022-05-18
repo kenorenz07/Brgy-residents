@@ -8,16 +8,11 @@ use Illuminate\Http\Request;
 class HouseholdController extends Controller
 {
 
-    public $secretary;
-
-    public function __construct(Request $request)
-    {
-        $this->secretary = $request->user();
-    }
-
     public function index(Request $request)
     {
-        return $this->secretary->households;
+        $secretary = $request->user();
+
+        return $secretary->households;
     }
 
     public function show(Household $household)
@@ -27,12 +22,14 @@ class HouseholdController extends Controller
 
     public function create(Request $request)
     {
+        $secretary = $request->user();
+
         $request->validate([
             "number" => "required",
             "location" => "required"
         ]);
 
-        $new_household = $this->secretary->households()->create([
+        $new_household = $secretary->households()->create([
             "number" => $request->number,
             "address" => $request->location['address'],
             "long" => $request->location['position']['lng'],

@@ -71,13 +71,13 @@ export default {
     methods : {
         login_admin(){
             
-                axios.post('/api/login',this.form).then((response) => {
-                    console.log(response)
-                    if(response.error) {
-                        alert("Username or password are incorrect")
+                axios.post('/api/login',this.form).then(({data}) => {
+                    console.log(data)
+                    if(data.error) {
+                        this.errorNotify("Username or password are incorrect")
                     }
                     else{
-                        localStorage.setItem('token',response.data.token)
+                        localStorage.setItem('token',data.token)
                         this.$router.push('/dashboard')
                     }
                 })

@@ -48,6 +48,7 @@ export default {
         drawer: true,
         items: [
             { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
+            { title: 'Households', icon: 'mdi-home-city', route: '/households' },
         ],
     }),
     props : {

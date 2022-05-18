@@ -5,6 +5,7 @@ import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import Main from '../pages/Main.vue';
 import Dashboard from '../pages/Admin/Dashboard.vue';
+import Households from '../pages/Admin/Households.vue';
 
 import Map from '../pages/Map.vue'
 
@@ -26,6 +27,11 @@ const router = new VueRouter({
                     path: '/dashboard',
                     name: 'dashboard',
                     component: Dashboard,
+                },
+                {
+                    path: '/households',
+                    name: 'households',
+                    component: Households,
                 },
                
             ]

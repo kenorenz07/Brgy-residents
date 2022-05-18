@@ -11,6 +11,8 @@ class Household extends Model
 
     protected $guarded = [];
 
+    protected $with = ['residents'];
+
     public function secretary()
     {
         return $this->belongsTo(User::class);
