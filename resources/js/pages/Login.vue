@@ -64,8 +64,8 @@ export default {
     data: () => ({
         show_pass: false,
         form: {
-            email: 'admin@lang.com',
-            password: 123123,
+            email: '',
+            password:null,
         }
     }),
     methods : {

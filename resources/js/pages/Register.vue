@@ -61,7 +61,7 @@
                                             <v-text-field
                                                 v-model="form.password_confirmation"
                                                 id="confirm_password"
-                                                label="confirm_password"
+                                                label="Confirm password"
                                                 name="confirm_password"
                                                 prepend-icon="lock"
                                                 :type="show_confirm_password ? 'text' : 'password'"

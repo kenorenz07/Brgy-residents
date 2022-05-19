@@ -75,6 +75,7 @@
         </v-card>
 
         <HouseholdForm
+            ref="householdForm"
             :form="household"
             :user_location="user_location"
             :dialogState="addition_edition_dailog"
@@ -130,10 +131,19 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
                     lng : data.long
                 }
             })
+            this.$refs.householdForm.refreshMarkers()
+
         },
         saveHousehold() {
             this.$admin.post('/household/create',this.household).then(({data}) => {
                 this.initialize()
+                this.household = {
+                    number : '',
+                    location: {
+                        address : ''
+                    },
+                    key: 3
+                }
                 this.successNotify("Household added ")
 
             })

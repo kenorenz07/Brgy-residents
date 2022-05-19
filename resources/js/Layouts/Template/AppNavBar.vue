@@ -5,7 +5,7 @@
         persistent
     >
         <v-list-item class="px-2 pt-2">
-            <v-img class="at-logo" src="images/residents.png"></v-img>
+            <strong>{{user.address}}</strong>
         </v-list-item>
         <v-list >
             <v-list-item
@@ -47,15 +47,20 @@ export default {
     data: () => ({
         drawer: true,
         items: [
+            { title: 'My account', icon: 'mdi-account', route: '/account' },
             { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
             { title: 'Households', icon: 'mdi-home-city', route: '/households' },
         ],
+        user : { address : ''},
     }),
     props : {
         mini : {
             require: true,
             type : Boolean
         }
+    },
+    mounted () {
+        this.getUser()
     },
     computed : {
         activeRoute () {
@@ -76,6 +81,11 @@ export default {
             this.$admin.post('/logout').then((response) => {
                 localStorage.removeItem("token")
                 this.$router.push('/login')
+            })
+        },
+        getUser(){
+            this.$admin.get('/profile').then(({data}) =>{
+                this.user = data
             })
         },
         checkIfActive(route){

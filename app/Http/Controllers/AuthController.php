@@ -32,6 +32,39 @@ class AuthController extends Controller
         return $new_sec;
     }
 
+    public function update(User $user,Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "email" => "required|email",
+            "location" => "required"
+        ]);
+
+        $user->update([
+            "name" => $request->name,
+            "email" => $request->email,
+            "address" => $request->location['address'],
+            "long" => $request->location['position']['lng'],
+            "lat" => $request->location['position']['lat'],
+        ]);
+
+        if($request->password) {
+
+            if($request->password != $request->password_confirmation) 
+                return response()->json([
+                    "message"=> "Password does not match",
+                    "errors" => ["password" => ["Password does not match."]]
+                ], 422);
+            
+            $user->update([
+                "password" => bcrypt($request->password),
+            ]);
+        }
+
+        return $user;
+
+    }
+
     public function login(Request $request)
     {
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 

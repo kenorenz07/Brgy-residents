@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import Main from '../pages/Main.vue';
+import Account from '../pages/Admin/Account.vue';
 import Dashboard from '../pages/Admin/Dashboard.vue';
 import Households from '../pages/Admin/Households.vue';
 import Household from '../pages/Admin/View/Household.vue';
@@ -24,6 +25,11 @@ const router = new VueRouter({
                 requiresAuth: true
             },
             children : [
+                {
+                    path: '/account',
+                    name: 'account',
+                    component: Account,
+                },
                 {
                     path: '/dashboard',
                     name: 'dashboard',

@@ -29,7 +29,9 @@ Route::group(['middleware' => ['auth:api']], function () {
 
     // API route for logout user
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::put('/update/{user}', [AuthController::class, 'update']);
 
+    Route::get('/dashboard-stats',[HouseholdController::class,'dashboard']);
     // Household Managin 
     Route::get('household/index',[HouseholdController::class,'index']);
     Route::get('household/markers',[HouseholdController::class,'getMarkers']);

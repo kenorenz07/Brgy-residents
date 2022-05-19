@@ -14,7 +14,7 @@
     />
     <l-geosearch :options="geoSearchOptions"></l-geosearch>
     <l-marker
-      v-if="position.lat && position.lng"
+      v-if="position.lat && position.lng && marker_select"
       visible
       draggable
          :icon="geticon()" 
@@ -63,6 +63,14 @@ export default {
     household_id : {
       type: Number,
       default : null
+    },
+    marker_select : {
+      type : Boolean,
+      default : true
+    },
+    from_secretary : {
+      type : Boolean,
+      default : false
     }
   },
   data() {
@@ -130,6 +138,11 @@ export default {
     }
   },
   methods: {
+    setPositionMarkerLocation(){
+      console.log('gege')
+        this.position = this.household_location;
+
+    },
     async getAddress() {
       this.loading = true;
       let address = "Unresolved address";
@@ -180,7 +193,7 @@ export default {
     },
     getMarkers(){
       let params = {} 
-      if(this.household_id)
+      if(this.household_id && this.from_secretary == false)
         params.household_id = this.household_id
 
       if(localStorage.getItem('token')){

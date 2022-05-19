@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        User::create([
-            'name' => 'admin lang',
-            'password' => bcrypt(123123),
-            'email' => 'admin@lang.com'
-        ]);
+        // User::create([
+        //     'name' => 'admin lang',
+        //     'password' => bcrypt(123123),
+        //     'email' => 'admin@lang.com'
+        // ]);
 
         Artisan::call('passport:install');
         Artisan::call('storage:link');
