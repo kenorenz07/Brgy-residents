@@ -73,10 +73,14 @@ class HouseholdController extends Controller
     {
         $request->validate([
             "number" => "required",
+            "location" => "required"
         ]);
 
         $household->update([
-            "number" => $request->number
+            "number" => $request->number,
+            "address" => $request->location['address'],
+            "long" => $request->location['position']['lng'],
+            "lat" => $request->location['position']['lat'],
         ]);
 
         return $household;

@@ -58,8 +58,6 @@ export default {
     household_location : {
       type: Object,
       default: () => ({
-        lat: 12.067878,
-        lng: 124.595390
       })
     },
     household_id : {
@@ -185,9 +183,11 @@ export default {
       if(this.household_id)
         params.household_id = this.household_id
 
-      this.$admin.get(`household/markers`,{params}).then(({data}) => {
-        this.markers = data
-      })
+      if(localStorage.getItem('token')){
+        this.$admin.get(`household/markers`,{params}).then(({data}) => {
+          this.markers = data
+        })
+      }
     },
     async getUserPosition() {
       if (navigator.geolocation) {

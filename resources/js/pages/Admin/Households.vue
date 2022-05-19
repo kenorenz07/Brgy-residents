@@ -134,6 +134,8 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
         saveHousehold() {
             this.$admin.post('/household/create',this.household).then(({data}) => {
                 this.initialize()
+                this.successNotify("Household added ")
+
             })
         },
         async deleteHousehold(household){
@@ -142,6 +144,8 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
 
             this.$admin.delete(`household/delete/${household.id}`).then(({data}) => {
                 this.initialize()
+                this.successNotify("Household deleted ")
+
             })
         }
 

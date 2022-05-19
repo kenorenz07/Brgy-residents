@@ -82,7 +82,7 @@
                         </v-card-title>
                         <v-data-table
                         :headers="headers"
-                        :items="household.residents"
+                        :items="household_data.residents"
                         :search="search"
                         >
                             <template v-slot:item.vaccinated="{ item }">
@@ -92,7 +92,7 @@
                                 {{item.is_four_pis_member ? "Yes" : "No"}}
                             </template>
                              <template v-slot:item.is_senior_member="{ item }">
-                                {{item.is_senior ? "Yes" : "No"}}
+                                {{item.is_senior_member ? "Yes" : "No"}}
                             </template>
                             <template v-slot:item.actions="{ item }">
                                 <!-- <v-btn
@@ -107,17 +107,18 @@
                                         mdi-eye
                                     </v-icon>
                                 </v-btn> -->
-                                <!-- <v-btn
+                                 <v-btn
                                     class="mx-2"
                                     fab
                                     dark
                                     color="warning"
+                                    @click="editResident(item)"
                                     small
                                 >
                                     <v-icon >
                                         mdi-pencil
                                     </v-icon>
-                                </v-btn> -->
+                                </v-btn> 
                                 <v-btn
                                     class="mx-2"
                                     fab
@@ -137,14 +138,22 @@
             </v-row>
           </v-container>
         </v-card>
+        <ResidentForm
+            :form="resident"
+            :dialogState="addition_edition_dailog"
+            @close="(addition_edition_dailog = false), initialize()"
+            @save="(addition_edition_dailog = false), saveResident()"
+        />
 
     </div>
 </template>
 <script>
 import LocationSelector from '../../../components/LocationMapSelector.vue'
+import ResidentForm from '../../../components/ResidentForm.vue'
 export default {
     components : {
-        LocationSelector
+        LocationSelector,
+        ResidentForm
     },
     data () {
       return {
@@ -158,6 +167,25 @@ export default {
         household_data : {
             number : '',
         },
+        resident : {
+            id:null,
+            household_id : null,
+            first_name : '',
+            middle_name : '',
+            last_name : '',
+            suffix : '',
+            birthday : (new Date()).toISOString().split('T')[0],
+            age : null,
+            civil_status : 'single',
+            contact_number : '',
+            gender : null,
+            purok : '',
+            vaccinated : false,
+            vaccine_name : '',
+            dose : '',
+            is_four_pis_member : false,
+            is_senior_member : false,
+        },
         headers: [
           { text: 'Full name', value: 'full_name' },
           { text: 'Birthdate', value: 'birthday' },
@@ -168,7 +196,7 @@ export default {
           { text: 'Purok', value: 'purok' },
           { text: 'Vaccinated', value: 'vaccinated' },
           { text: '4ps member', value: 'is_four' },
-          { text: 'Senior citizen', value: 'is_senior' },
+          { text: 'Senior citizen', value: 'is_senior_member' },
           { text: 'Actions', value: 'actions' },
         ],
         household_location : {
@@ -182,6 +210,7 @@ export default {
     },
     created () {
         this.initialize()
+        this.resetResident()
     },
     computed : {
     },
@@ -206,14 +235,53 @@ export default {
                 }
             })
         },
+        resetResident(){
+            this.resident = {
+                id:null,
+                household_id : this.$route.params.id,
+                first_name : '',
+                middle_name : '',
+                last_name : '',
+                suffix : '',
+                birthday : (new Date()).toISOString().split('T')[0],
+                age : null,
+                civil_status : 'single',
+                contact_number : '',
+                gender : null,
+                purok : '',
+                vaccinated : false,
+                vaccine_name : '',
+                dose : '',
+                is_four_pis_member : false,
+                is_senior_member : false,
+            }
+        },
+        editResident(resident){
+            this.resident = resident
+            this.addition_edition_dailog = true
+        },
         saveResident() {
-            this.$admin.post(`/household/${this.household_data.id}/resident`).then(({data}) => {
+            var end_point = this.resident.id ? `resident/update/${this.resident.id}` : `/household/${this.household_data.id}/resident`
+
+            this.$admin.post(end_point,this.resident).then(({data}) => {
+                this.successNotify(`Resident ${this.resident.id ? "updated" : "added"} `)
+                this.resetResident()
+                this.initialize()
+            })
+        },
+        async deleteResident(resident) {
+            let confirm = await this.deleteRecord("Resident : "+resident.full_name);
+            if (!confirm) return;
+
+            this.$admin.delete(`resident/delete/${resident.id}`).then(({data}) => {
+                this.successNotify("Resident deleted ")
                 this.initialize()
             })
         },
         saveHousehold() {
             this.$admin.put('/household/update/'+this.$route.params.id,this.household).then(({data}) => {
                 this.initialize()
+                this.successNotify("Household updated ")
             })
         },
         async deleteHousehold(){
@@ -221,6 +289,7 @@ export default {
             if (!confirm) return;
 
             this.$admin.delete(`household/delete/${this.household.id}`).then(({data}) => {
+                this.successNotify("Household deleted ")
                 this.initialize()
             })
         }
@@ -228,3 +297,9 @@ export default {
     }
   }
 </script>
+
+<style scoped>
+.vue2leaflet-map {
+    z-index: 0;
+}
+</style>
