@@ -155,16 +155,16 @@ import LocationSelector from '../../components/LocationMapSelector.vue'
 export default {
     data: () => ({
         statistics_totals : {
-            households : 10,
-            four_p_members : 40,
-            residents : 20,
-            seniors : 20,
+            households : 0,
+            four_p_members : 0,
+            residents : 0,
+            seniors : 0,
         },
         tab: null,
         items: [
           'Statistics', 'Map'
         ],
-        gender_series: [44, 55],
+        gender_series: [0, 0],
         genderOptions: {
             chart: {
                 width: 380,
@@ -187,7 +187,7 @@ export default {
                 }
             }]
         },
-        vaccinated_series: [44, 55],
+        vaccinated_series: [0, 0],
         vaccinatedOptions: {
             chart: {
                 width: 380,
@@ -210,7 +210,7 @@ export default {
                 }
             }]
         },
-        civil_status_series: [44, 55,44, 4, 55],
+        civil_status_series: [0, 0,0, 0, 0],
         civil_statusOptions: {
             chart: {
                 width: 380,

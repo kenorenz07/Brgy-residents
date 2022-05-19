@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::put('household/update/{household}',[HouseholdController::class,'update']);
     Route::delete('household/delete/{household}',[HouseholdController::class,'delete']);
     //Resident
+    Route::get('residents',[ResidentController::class,"index"]);
+    Route::get('residents/download',[ResidentController::class,"download"]);
     Route::post('household/{household}/resident',[ResidentController::class,'create']);
     Route::get('resident/show/{resident}',[ResidentController::class,'show']);
     Route::post('resident/update/{resident}',[ResidentController::class,'update']);

@@ -11,7 +11,6 @@
                 >
                     <v-sheet max-width="100%" width="100%">
                         <v-flex>
-                            <v-btn @click="resetMap()">Reset</v-btn>
                             <span>Double click to select location or Search</span>
                         </v-flex>
                         <div style="width:100%;height: 300px">
@@ -170,6 +169,7 @@ export default {
         resident : {
             id:null,
             household_id : null,
+            household_status : null,
             first_name : '',
             middle_name : '',
             last_name : '',
@@ -188,6 +188,7 @@ export default {
         },
         headers: [
           { text: 'Full name', value: 'full_name' },
+          { text: 'Household status', value: 'household_status' },
           { text: 'Birthdate', value: 'birthday' },
           { text: 'Age', value: 'age' },
           { text: 'Civil Status', value: 'civil_status' },
@@ -239,6 +240,7 @@ export default {
             this.resident = {
                 id:null,
                 household_id : this.$route.params.id,
+                household_status : null,
                 first_name : '',
                 middle_name : '',
                 last_name : '',

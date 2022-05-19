@@ -2,20 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ResidentsExport;
 use App\Models\Household;
 use App\Models\Resident;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResidentController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $secretary = $request->user();
+
+        $residents = Resident::with('household')->whereHas('household',function($query) use($secretary) {
+            return $query->where('user_id',$secretary->id);
+        })->get();
+
+        return $residents;
+    }
+
+    public function download()
+    {
+        return Excel::download(new ResidentsExport, 'residents.xlsx');
+    }
+
     public function create(Household $household,Request $request)
     {
         $request->validate([
             "first_name" => "required",
             "middle_name" => "required",
             "last_name" => "required",
-            "suffix" => "required",
+            "household_status"=> "required",
             "age" => "required",
             "contact_number" => "required",
             "gender" => "required",
@@ -26,6 +45,7 @@ class ResidentController extends Controller
             "first_name" => $request->first_name,
             "middle_name" => $request->middle_name,
             "last_name" => $request->last_name,
+            "household_status" => $request->household_status,
             "suffix" => $request->suffix,
             "birthday" => Carbon::parse($request->birthday),
             "age" => $request->age,
@@ -48,8 +68,8 @@ class ResidentController extends Controller
         $request->validate([
             "first_name" => "required",
             "middle_name" => "required",
+            "household_status"=> "required",
             "last_name" => "required",
-            "suffix" => "required",
             "age" => "required",
             "contact_number" => "required",
             "gender" => "required",
@@ -62,6 +82,7 @@ class ResidentController extends Controller
             "last_name" => $request->last_name,
             "suffix" => $request->suffix,
             "birthday" => Carbon::parse($request->birthday),
+            "household_status" => $request->household_status,
             "age" => $request->age,
             "civil_status" => $request->civil_status,
             "contact_number" => $request->contact_number,

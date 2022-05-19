@@ -50,6 +50,7 @@ export default {
             { title: 'My account', icon: 'mdi-account', route: '/account' },
             { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/dashboard' },
             { title: 'Households', icon: 'mdi-home-city', route: '/households' },
+            { title: 'Residents', icon: 'mdi-account-group', route: '/residents' },
         ],
         user : { address : ''},
     }),

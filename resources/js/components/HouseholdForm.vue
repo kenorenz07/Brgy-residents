@@ -8,7 +8,7 @@
     
       <v-card>
         <v-card-title>
-          <span class="text-h5">Add Household</span>
+          <span class="text-h5">Add Household (* = required field)</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -24,7 +24,6 @@
                   >
                     <v-sheet max-width="100%" width="100%">
                         <v-flex>
-                            <v-btn @click="resetMap()">Reset</v-btn>
                             <span>Double click to select location or Search</span>
                         </v-flex>
                         <div style="width:100%;height: 500px">
@@ -33,7 +32,7 @@
                     </v-sheet>
                     <v-text-field
                         v-model="form.number"
-                        label="Number"
+                        label="Number*"
                         name="number"
                         prepend-icon="home"
                         type="text"

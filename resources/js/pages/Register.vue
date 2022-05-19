@@ -20,7 +20,7 @@
                                 dark
                                 flat
                             >
-                                <v-toolbar-title>Create new Account</v-toolbar-title>
+                                <v-toolbar-title>Create new Account (* = required field)</v-toolbar-title>
                             
                             </v-toolbar>
                             <v-card-text>
@@ -33,7 +33,7 @@
                                         <v-form>
                                             <v-text-field
                                                 v-model="form.name"
-                                                label="Name"
+                                                label="Name*"
                                                 name="name"
                                                 prepend-icon="person"
                                                 type="text"
@@ -41,7 +41,7 @@
 
                                             <v-text-field
                                                 v-model="form.email"
-                                                label="Email"
+                                                label="Email*"
                                                 name="email"
                                                 prepend-icon="person"
                                                 type="email"
@@ -50,7 +50,7 @@
                                             <v-text-field
                                                 v-model="form.password"
                                                 id="password"
-                                                label="Password"
+                                                label="Password*"
                                                 name="password"
                                                 prepend-icon="lock"
                                                 :type="show_pass ? 'text' : 'password'"
@@ -61,7 +61,7 @@
                                             <v-text-field
                                                 v-model="form.password_confirmation"
                                                 id="confirm_password"
-                                                label="Confirm password"
+                                                label="Confirm password*"
                                                 name="confirm_password"
                                                 prepend-icon="lock"
                                                 :type="show_confirm_password ? 'text' : 'password'"
@@ -87,7 +87,6 @@
                                     >
                                         <v-sheet>
                                             <v-flex>
-                                                <v-btn @click="resetMap()">Reset</v-btn>
                                                 <span>Double click to select location or Search</span>
                                             </v-flex>
                                             <div style="width:100%;height: 500px">

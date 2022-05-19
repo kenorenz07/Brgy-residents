@@ -8,7 +8,7 @@
     
       <v-card>
         <v-card-title>
-          <span class="text-h5">Add Household</span>
+          <span class="text-h5">{{form.id ?"Edit":"Add"}} Resident (* = required field)</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -20,19 +20,19 @@
                 >
                     <v-text-field
                         v-model="form.first_name"
-                        label="First name"
+                        label="First name*"
                         name="first_name"
                         type="text"
                     ></v-text-field>
                     <v-text-field
                         v-model="form.middle_name"
-                        label="Middle name"
+                        label="Middle name*"
                         name="middle_name"
                         type="text"
                     ></v-text-field>
                      <v-text-field
                         v-model="form.last_name"
-                        label="Last name"
+                        label="Last name*"
                         name="last_name"
                         type="text"
                     ></v-text-field>
@@ -54,7 +54,7 @@
                         <template v-slot:activator="{ on, attrs }">
                         <v-text-field
                             v-model="form.birthday"
-                            label="Pick birthdate"
+                            label="Pick birthdate*"
                             prepend-icon="mdi-calendar"
                             readonly
                             v-bind="attrs"
@@ -85,14 +85,19 @@
                     </v-menu>
                      <v-text-field
                         v-model="form.age"
-                        label="Age"
+                        label="Age*"
                         name="age"
                         type="number"
                     ></v-text-field>
                     <v-select
                         v-model="form.civil_status"
                         :items="civil_statuses"
-                        label="Civil status"
+                        label="Civil status*"
+                    ></v-select>
+                    <v-select
+                        v-model="form.household_status"
+                        :items="household_statuses"
+                        label="Household status*"
                     ></v-select>
                 </v-col>
                 <v-col      
@@ -102,18 +107,18 @@
                 >
                     <v-text-field
                         v-model="form.contact_number"
-                        label="Contact number"
+                        label="Contact number*"
                         name="contact_number"
                         type="text"
                     ></v-text-field>
                     <v-select
                         v-model="form.gender"
                         :items="genders"
-                        label="Gender"
+                        label="Gender*"
                     ></v-select>
                     <v-text-field
                         v-model="form.purok"
-                        label="Purok"
+                        label="Purok*"
                         name="purok"
                         type="text"
                     ></v-text-field>
@@ -180,7 +185,9 @@ export default {
         form: {
             type: Object,
             default: {
+                id:null,
                 household_id : null,
+                household_status : null,
                 first_name : '',
                 middle_name : '',
                 last_name : '',
@@ -204,7 +211,8 @@ export default {
         menu: false,
         civil_statuses : ["married", "single", "divorced", "widowed","separated"],
         genders : ["Male", "Female"],
-        doses : ["1st dose","2nd Dose","Booster"]
+        doses : ["1st dose","2nd Dose","Booster"],
+        household_statuses : ["Leader", "Member"]
     }),
     computed : {
       modalState(){

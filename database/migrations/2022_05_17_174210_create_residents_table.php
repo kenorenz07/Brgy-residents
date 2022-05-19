@@ -16,10 +16,11 @@ class CreateResidentsTable extends Migration
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('household_id')->constrained('households');
+            $table->enum('household_status',["Leader", "Member"]);
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
-            $table->string('suffix');
+            $table->string('suffix')->nullable();
             $table->date('birthday');
             $table->integer('age');
             $table->enum('civil_status',["married", "single", "divorced", "widowed","separated"]);
