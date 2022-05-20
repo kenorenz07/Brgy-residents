@@ -18,7 +18,7 @@ class CreateResidentsTable extends Migration
             $table->foreignId('household_id')->constrained('households');
             $table->enum('household_status',["Leader", "Member"]);
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('suffix')->nullable();
             $table->date('birthday');
