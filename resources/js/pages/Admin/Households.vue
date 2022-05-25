@@ -95,7 +95,11 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
         household : {
             number : '',
             location: {
-                address : ''
+                address : '',
+                position : {
+                        lat : 0,
+                        lng : 0
+                    }
             },
             key: 3
         },
@@ -140,7 +144,11 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
                 this.household = {
                     number : '',
                     location: {
-                        address : ''
+                        address : '',
+                        position : {
+                            lat : 0,
+                            lng : 0
+                        }
                     },
                     key: 3
                 }

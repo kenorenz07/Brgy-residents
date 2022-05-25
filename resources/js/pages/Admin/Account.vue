@@ -53,9 +53,23 @@
                                 name="address"
                                 prepend-icon="map"
                                 type="text"
-                                :disabled="true"
                             ></v-text-field>
-                            
+                            <v-text-field
+                                v-if="form.location.position.lat != 0"
+                                v-model="form.location.position.lat"
+                                label="Latitude"
+                                name="latitude"
+                                prepend-icon="map"
+                                type="number"
+                            ></v-text-field>
+                                <v-text-field
+                                v-if="form.location.position.lng != 0"
+                                v-model="form.location.position.lng"
+                                label="Longitude"
+                                name="longitude"
+                                prepend-icon="map"
+                                type="number"
+                            ></v-text-field>
                         </v-form>
                     </v-col>
                     <v-col      
@@ -98,7 +112,11 @@ import LocationSelector from '../../components/LocationMapSelector.vue'
             password: null,
             password_confirmation: null,
             location: {
-                address : ''
+                address : '',
+                position : {
+                    lat : 0,
+                    lng : 0
+                }
             },
             key: 1
         },

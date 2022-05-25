@@ -16,16 +16,19 @@ class CreateResidentsTable extends Migration
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('household_id')->constrained('households');
-            $table->enum('household_status',["Leader", "Member"]);
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('suffix')->nullable();
             $table->date('birthday');
             $table->integer('age');
-            $table->enum('civil_status',["married", "single", "divorced", "widowed","separated"]);
+            $table->enum('civil_status',["married", "single", "divorced", "widowed","nullified","anulled","legally separated"]);
+            $table->string('blood_type');
+            $table->string('birth_country');
+            $table->string('birth_province');
+            $table->string('birth_city');
             $table->string('contact_number');
-            $table->enum('gender',["Male", "Female"]);
+            $table->enum('sex',["Male", "Female"]);
             $table->string('purok');
             $table->boolean('vaccinated');
             $table->string('vaccine_name')->nullable();

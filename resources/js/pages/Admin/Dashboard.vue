@@ -124,8 +124,8 @@
                             <v-row  v-if="item == 'Statistics'">
                                 <v-col cols=4 md=4 sm=6>
                                     <div class="">
-                                        <h4 class="ml-10">Gender</h4>
-                                        <apexchart type="pie" width="400" :options="genderOptions" :series="gender_series"></apexchart>
+                                        <h4 class="ml-10">Sex</h4>
+                                        <apexchart type="pie" width="400" :options="sexOptions" :series="sex_series"></apexchart>
                                     </div>
                                 </v-col>
                                 <v-col cols=4 md=4 sm=6>
@@ -164,8 +164,8 @@ export default {
         items: [
           'Statistics', 'Map'
         ],
-        gender_series: [0, 0],
-        genderOptions: {
+        sex_series: [0, 0],
+        sexOptions: {
             chart: {
                 width: 380,
                 type: 'pie',
@@ -251,6 +251,9 @@ export default {
         LocationSelector
     },
     watch : {
+        tab (val) {
+            this.initialize()
+        }
     },
     computed : {
     },
@@ -268,7 +271,7 @@ export default {
                     residents : data.residents,
                     seniors : data.seniors,
                 },
-                this.gender_series= data.gender_series
+                this.sex_series= data.sex_series
                 this.vaccinated_series= data.vaccinated_series
                 this.civil_status_series= data.civil_status_series
             })

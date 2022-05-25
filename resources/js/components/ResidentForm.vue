@@ -83,22 +83,31 @@
                         </v-btn>
                         </v-date-picker>
                     </v-menu>
-                     <v-text-field
+                    <v-text-field
                         v-model="form.age"
                         label="Age*"
                         name="age"
                         type="number"
                     ></v-text-field>
-                    <v-select
-                        v-model="form.civil_status"
-                        :items="civil_statuses"
-                        label="Civil status*"
-                    ></v-select>
-                    <v-select
-                        v-model="form.household_status"
-                        :items="household_statuses"
-                        label="Household status*"
-                    ></v-select>
+                    <v-text-field
+                        v-model="form.birth_country"
+                        label="Birth Country*"
+                        name="birth_country"
+                        type="text"
+                    ></v-text-field>
+                    <v-text-field
+                        v-model="form.birth_province"
+                        label="Birth province*"
+                        name="birth_province"
+                        type="text"
+                    ></v-text-field>
+                     <v-text-field
+                        v-model="form.birth_city"
+                        label="Birth city*"
+                        name="birth_city"
+                        type="text"
+                    ></v-text-field>
+                    
                 </v-col>
                 <v-col      
                     cols="6"
@@ -112,9 +121,9 @@
                         type="text"
                     ></v-text-field>
                     <v-select
-                        v-model="form.gender"
+                        v-model="form.sex"
                         :items="genders"
-                        label="Gender*"
+                        label="Sex*"
                     ></v-select>
                     <v-text-field
                         v-model="form.purok"
@@ -122,6 +131,16 @@
                         name="purok"
                         type="text"
                     ></v-text-field>
+                    <v-select
+                        v-model="form.civil_status"
+                        :items="civil_statuses"
+                        label="Civil status*"
+                    ></v-select>
+                    <v-select
+                        v-model="form.blood_type"
+                        :items="blood_types"
+                        label="Blood type*"
+                    ></v-select>
                     <v-checkbox
                         v-model="form.vaccinated"
                         label="Vaccinated"
@@ -187,7 +206,6 @@ export default {
             default: {
                 id:null,
                 household_id : null,
-                household_status : null,
                 first_name : '',
                 middle_name : '',
                 last_name : '',
@@ -196,7 +214,11 @@ export default {
                 age : null,
                 civil_status : 'single',
                 contact_number : '',
-                gender : null,
+                sex : null,
+                blood_type : null,
+                birth_country : '',
+                birth_province : '',
+                birth_city : '',
                 purok : '',
                 vaccinated : false,
                 vaccine_name : '',
@@ -209,10 +231,25 @@ export default {
     },
     data: () => ({
         menu: false,
-        civil_statuses : ["married", "single", "divorced", "widowed","separated"],
+        civil_statuses : ["married", "single", "divorced", "widowed","separated","nullified","anulled","legally separated"],
         genders : ["Male", "Female"],
         doses : ["1st dose","2nd Dose","Booster"],
-        household_statuses : ["Leader", "Member"]
+        blood_types : [
+            "AB-",
+            "O",
+            "A",
+           "A+",
+            "A-",
+            "B",
+            "B+",
+            "B-",
+            "AB",
+            "AB+",
+            "O+",
+            "O-",
+            "RH-NULL",
+            "UNKNOWN",
+        ]
     }),
     computed : {
       modalState(){

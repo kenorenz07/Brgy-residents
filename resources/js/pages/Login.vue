@@ -21,7 +21,7 @@
                             dark
                             flat
                         >
-                            <v-toolbar-title>Residential Records</v-toolbar-title>
+                            <v-toolbar-title>GIS Based Barangay Records</v-toolbar-title>
                            
                         </v-toolbar>
                         <v-card-text>

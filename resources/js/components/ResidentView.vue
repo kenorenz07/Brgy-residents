@@ -26,7 +26,6 @@
                     <v-row class="mt-2">
                         <v-col cols=6>
                             <p><strong>Household number </strong>: {{form.household ? form.household.number : ''}}</p>
-                            <p><strong>Household status </strong>: {{form.household_status}}</p>
                             <p><strong>Full name </strong>: {{form.full_name}}</p>
                             <p><strong>Birthdate </strong>: {{form.birthday}}</p>
                             <p><strong>Age </strong>: {{form.age}} year/s old</p>
@@ -35,7 +34,7 @@
                           
                         </v-col>
                         <v-col cols=6>
-                            <p><strong>Gender</strong> : {{form.gender}}</p>
+                            <p><strong>Sex</strong> : {{form.sex}}</p>
                             <p><strong>Purok</strong> : {{form.purok}}</p>
                             <p v-if="form.vaccinated"><strong>Vaccinated</strong></p>
                             <p v-if="form.vaccinated"><strong>Vaccine name </strong>: {{form.vaccine_name}}</p>
@@ -78,29 +77,32 @@ export default {
         form: {
             type: Object,
             default : {
-                id:null,
-                household_id : null,
-                household_status : null,
-                first_name : '',
-                middle_name : '',
-                last_name : '',
-                suffix : '',
-                birthday : (new Date()).toISOString().split('T')[0],
-                age : null,
-                civil_status : 'single',
-                contact_number : '',
-                gender : null,
-                purok : '',
-                vaccinated : false,
-                vaccine_name : '',
-                dose : '',
-                is_four_pis_member : false,
-                is_senior_member : false,
-                household : {
-                    number : null,
-                    address :null
-                }
+               id:null,
+            household_id : null,
+            first_name : '',
+            middle_name : '',
+            last_name : '',
+            suffix : '',
+            birthday : (new Date()).toISOString().split('T')[0],
+            age : null,
+            civil_status : 'single',
+            contact_number : '',
+            sex : null,
+            blood_type : null,
+            birth_country : '',
+            birth_province : '',
+            birth_city : '',
+            purok : '',
+            vaccinated : false,
+            vaccine_name : '',
+            dose : '',
+            is_four_pis_member : false,
+            is_senior_member : false,
+            household : {
+                number : null,
+                address :null
             }
+          }
         },
         household_location : {
             type: Object,

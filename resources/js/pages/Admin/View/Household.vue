@@ -42,6 +42,22 @@
                             prepend-icon="map"
                             type="text"
                         ></v-text-field>
+                         <v-text-field
+                            v-if="household.location.position.lat != 0"
+                            v-model="household.location.position.lat"
+                            label="Latitude"
+                            name="latitude"
+                            prepend-icon="map"
+                            type="number"
+                        ></v-text-field>
+                            <v-text-field
+                            v-if="household.location.position.lng != 0"
+                            v-model="household.location.position.lng"
+                            label="Longitude"
+                            name="longitude"
+                            prepend-icon="map"
+                            type="number"
+                        ></v-text-field>
 
                         <v-btn color="primary" @click="saveHousehold">Update</v-btn>
                     </v-form>
@@ -159,7 +175,11 @@ export default {
         household : {
             number : '',
             location: {
-                address : ''
+                address : '',
+                position : {
+                    lat : 0,
+                    lng : 0
+                }
             },
             key: 5
         },
@@ -169,7 +189,6 @@ export default {
         resident : {
             id:null,
             household_id : null,
-            household_status : null,
             first_name : '',
             middle_name : '',
             last_name : '',
@@ -178,7 +197,11 @@ export default {
             age : null,
             civil_status : 'single',
             contact_number : '',
-            gender : null,
+            sex : null,
+            blood_type : null,
+            birth_country : '',
+            birth_province : '',
+            birth_city : '',
             purok : '',
             vaccinated : false,
             vaccine_name : '',
@@ -188,12 +211,11 @@ export default {
         },
         headers: [
           { text: 'Full name', value: 'full_name' },
-          { text: 'Household status', value: 'household_status' },
           { text: 'Birthdate', value: 'birthday' },
           { text: 'Age', value: 'age' },
           { text: 'Civil Status', value: 'civil_status' },
           { text: 'Contact_number', value: 'contact_number' },
-          { text: 'Gender', value: 'gender' },
+          { text: 'Sex', value: 'sex' },
           { text: 'Purok', value: 'purok' },
           { text: 'Vaccinated', value: 'vaccinated' },
           { text: '4ps member', value: 'is_four' },
@@ -240,7 +262,6 @@ export default {
             this.resident = {
                 id:null,
                 household_id : this.$route.params.id,
-                household_status : null,
                 first_name : '',
                 middle_name : '',
                 last_name : '',
@@ -249,7 +270,11 @@ export default {
                 age : null,
                 civil_status : 'single',
                 contact_number : '',
-                gender : null,
+                sex : null,
+                blood_type : null,
+                birth_country : '',
+                birth_province : '',
+                birth_city : '',
                 purok : '',
                 vaccinated : false,
                 vaccine_name : '',

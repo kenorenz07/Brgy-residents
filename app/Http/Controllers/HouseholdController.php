@@ -31,13 +31,13 @@ class HouseholdController extends Controller
             "seniors" => Resident::whereHas('household',function($query) use($secretary) {
                 return $query->where('user_id',$secretary->id);
             })->where('is_senior_member',1)->count(),
-            "gender_series" => [
+            "sex_series" => [
                 Resident::whereHas('household',function($query) use($secretary) {
                     return $query->where('user_id',$secretary->id);
-                })->where('gender',"Male")->count(),
+                })->where('sex',"Male")->count(),
                 Resident::whereHas('household',function($query) use($secretary) {
                     return $query->where('user_id',$secretary->id);
-                })->where('gender',"Female")->count()
+                })->where('sex',"Female")->count()
             ],
             "vaccinated_series" => [
                 Resident::whereHas('household',function($query) use($secretary) {

@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-       <v-flex>
+        <v-row class="p-2">
             <span>Residents</span> 
             <v-btn
                 class="mx-2"
@@ -15,8 +15,20 @@
                     mdi-download
                 </v-icon>
             </v-btn>
-        </v-flex>
-      <v-spacer></v-spacer>
+             <v-switch
+                v-model="filter.vaccinated"
+              label="Vaccinated"
+            ></v-switch>
+            <v-switch
+                v-model="filter.senior"
+              label="Senior"
+            ></v-switch>
+            <v-switch
+                v-model="filter.four_p"
+              label="4ps member"
+            ></v-switch>
+            
+        </v-row>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -76,7 +88,6 @@ export default {
         headers: [
           { text: 'Full name', value: 'full_name' },
           { text: 'Household number', value: 'household_number' },
-          { text: 'Household status', value: 'household_status' },
           { text: 'Addresss', value: 'address' },
           { text: 'Civil Status', value: 'civil_status' },
           { text: 'Contact_number', value: 'contact_number' },
@@ -86,6 +97,11 @@ export default {
             lat: 12.067878,
             lng: 124.595390
         },
+        filter : {
+            senior: true,
+            vaccinated: true,
+            four_p: true,
+        },
         residents : [],
         selected_resident : {},
         view_dialog:false
@@ -94,9 +110,23 @@ export default {
     created () {
         this.initialize()
     },
+    watch : {
+        'filter' : {
+            deep : true, 
+            handler (val) {
+                this.initialize()
+            }
+        }
+    },
      methods : {
         initialize() {
-            this.$admin.get('/residents').then(({data}) =>{
+            this.$admin.get('/residents',{
+                params : {
+                    senior: this.filter.senior ? 1 : 0,
+                    vaccinated: this.filter.vaccinated ? 1 : 0,
+                    four_p: this.filter.four_p ? 1 : 0,
+                }
+            }).then(({data}) =>{
                 this.residents = data
             })
         },
@@ -111,7 +141,12 @@ export default {
         },
         downloadEx() {
               this.$admin.get('residents/download',{
-                responseType: 'arraybuffer'
+                responseType: 'arraybuffer',
+                params : {
+                    senior: this.filter.senior ? 1 : 0,
+                    vaccinated: this.filter.vaccinated ? 1 : 0,
+                    four_p: this.filter.four_p ? 1 : 0,
+                }
             })
             .then(response => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));

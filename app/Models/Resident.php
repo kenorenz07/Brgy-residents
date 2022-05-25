@@ -21,9 +21,9 @@ class Resident extends Model
     public function getFullnameAttribute()
     {
         $fullname = '';
-        if ($this->first_name) $fullname = ucfirst($this->first_name);
+        if ($this->last_name) $fullname = ucfirst($this->last_name);
+        if ($this->first_name) $fullname .=', '.ucfirst($this->first_name);
         if ($this->middle_name) $fullname .= ' '. ucfirst($this->middle_name);
-        if ($this->last_name) $fullname .= ' '.ucfirst($this->last_name);
         if ($this->suffix) $fullname .= ' '.ucfirst($this->suffix);
         return $fullname;
     }

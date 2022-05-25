@@ -23,11 +23,22 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
     //     return Resident::all();
     // }
 
+    public function __construct($senior,$four_p,$vaccinated)
+    {
+        $this->senior = $senior;
+        $this->vaccinated = $vaccinated;
+        $this->four_p = $four_p;
+    }
+
     public function query()
     {
-        return Resident::query()->with('household')->whereHas('household',function($query) {
+        $residents =  Resident::query()->with('household')->whereHas('household',function($query) {
             return $query->where('user_id',Auth::user()->id);
-        });
+        })->where('is_senior_member',$this->senior)
+        ->where('vaccinated',$this->vaccinated)
+        ->where('is_four_pis_member',$this->four_p);
+
+        return $residents;
     }
 
     public function map($resident): array
@@ -44,7 +55,7 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
             $resident->age,
             $resident->civil_status,
             $resident->contact_number,
-            $resident->gender,
+            $resident->sex,
             $resident->purok,
             $resident->vaccinated ? "Yes":"No",
             $resident->vaccine_name,
@@ -68,7 +79,7 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
             "Age",
             "Civil status",
             "Contact number",
-            "Gender",
+            "Sex",
             "Purok",
             "Vaccinated",
             "Vaccine name",

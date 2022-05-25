@@ -22,7 +22,7 @@
       @dragstart="dragging = true"
       @dragend="dragging = false"
     >
-      <l-tooltip :content="tooltipContent" :options="{ permanent: true }" />
+      <l-tooltip :content="tooltipContent"  />
     </l-marker>
     <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker.location" :icon="getExistingIcon()" >
       <l-tooltip :content="marker.description" />
