@@ -23,6 +23,10 @@ class ResidentController extends Controller
 
             if($request->query('search_key'))
                 $residents->where('purok', $request->query('search_key'));
+
+            $residents->whereHas('household',function($query) use($secretary) {
+                return $query->where('user_id',$secretary->id);
+            });
         }
         if($request->query('vaccinated') == 1) {
             if($request->query('senior') != 1)
@@ -32,6 +36,10 @@ class ResidentController extends Controller
 
             if($request->query('search_key'))
                 $residents->where('purok', $request->query('search_key'));
+
+            $residents->whereHas('household',function($query) use($secretary) {
+                return $query->where('user_id',$secretary->id);
+            });
         }
         if($request->query('four_p') == 1) {
             if($request->query('vaccinated') != 1 && $request->query('senior') != 1)
@@ -41,6 +49,10 @@ class ResidentController extends Controller
 
             if($request->query('search_key'))
                 $residents->where('purok', $request->query('search_key'));
+
+            $residents->whereHas('household',function($query) use($secretary) {
+                return $query->where('user_id',$secretary->id);
+            });
         }
 
         if($request->query('search_key'))

@@ -42,6 +42,10 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
 
             if($this->search_key)
                 $residents->where("purok",$this->search_key);
+
+            $residents->whereHas('household',function($query) {
+                return $query->where('user_id',Auth::user()->id);
+            });
         }
         if($this->vaccinated == 1) {
             if($this->senior != 1)
@@ -51,6 +55,10 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
 
             if($this->search_key)
                 $residents->where("purok",$this->search_key);
+
+            $residents->whereHas('household',function($query) {
+                return $query->where('user_id',Auth::user()->id);
+            });
         }
         if($this->four_p == 1){
             if($this->senior != 1 && $this->vaccinated != 1)
@@ -60,6 +68,10 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
 
             if($this->search_key)
                 $residents->where("purok",$this->search_key);
+
+            $residents->whereHas('household',function($query) {
+                return $query->where('user_id',Auth::user()->id);
+            });
         } 
 
         if($this->search_key)
