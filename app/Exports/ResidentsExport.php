@@ -33,9 +33,7 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
 
     public function query()
     {
-        $residents =  Resident::query()->with('household')->whereHas('household',function($query) {
-            return $query->where('user_id',Auth::user()->id);
-        });
+        $residents =  Resident::query()->with('household');
            
        
 
@@ -67,7 +65,9 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
         if($this->search_key)
             $residents->where("purok",$this->search_key);
 
-        return $residents;
+        return $residents->whereHas('household',function($query) {
+            return $query->where('user_id',Auth::user()->id);
+        });
     }
 
     public function map($resident): array

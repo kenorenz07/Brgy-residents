@@ -16,9 +16,7 @@ class ResidentController extends Controller
     {
         $secretary = $request->user();
 
-        $residents = Resident::query()->with('household')->whereHas('household',function($query) use($secretary) {
-            return $query->where('user_id',$secretary->id);
-        });
+        $residents = Resident::query()->with('household');
 
         if($request->query('senior') == 1) {
             $residents->where('is_senior_member',1);
@@ -48,7 +46,9 @@ class ResidentController extends Controller
         if($request->query('search_key'))
             $residents->where('purok', $request->query('search_key'));
 
-        return $residents->get();
+        return $residents->whereHas('household',function($query) use($secretary) {
+            return $query->where('user_id',$secretary->id);
+        })->get();
     }
 
     public function download(Request $request)
