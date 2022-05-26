@@ -94,6 +94,7 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
       return {
         household : {
             number : '',
+            address : '',
             location: {
                 address : '',
                 position : {
@@ -143,6 +144,7 @@ import HouseholdForm from '../../components/HouseholdForm.vue'
                 this.initialize()
                 this.household = {
                     number : '',
+                    address : '',
                     location: {
                         address : '',
                         position : {

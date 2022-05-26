@@ -23,20 +23,49 @@ class ResidentsExport implements FromQuery, WithHeadings, WithMapping
     //     return Resident::all();
     // }
 
-    public function __construct($senior,$four_p,$vaccinated)
+    public function __construct($senior,$four_p,$vaccinated,$search_key)
     {
         $this->senior = $senior;
         $this->vaccinated = $vaccinated;
         $this->four_p = $four_p;
+        $this->search_key = $search_key;
     }
 
     public function query()
     {
         $residents =  Resident::query()->with('household')->whereHas('household',function($query) {
             return $query->where('user_id',Auth::user()->id);
-        })->where('is_senior_member',$this->senior)
-        ->where('vaccinated',$this->vaccinated)
-        ->where('is_four_pis_member',$this->four_p);
+        });
+           
+       
+
+        if($this->senior == 1) {
+            $residents->where('is_senior_member',1);
+
+            if($this->search_key)
+                $residents->where("purok",$this->search_key);
+        }
+        if($this->vaccinated == 1) {
+            if($this->senior != 1)
+                $residents->where('vaccinated',1);
+            else
+                $residents->orWhere('vaccinated',1);
+
+            if($this->search_key)
+                $residents->where("purok",$this->search_key);
+        }
+        if($this->four_p == 1){
+            if($this->senior != 1 && $this->vaccinated != 1)
+                $residents->where('is_four_pis_member',1);
+            else
+                $residents->orWhere('is_four_pis_member',1);
+
+            if($this->search_key)
+                $residents->where("purok",$this->search_key);
+        } 
+
+        if($this->search_key)
+            $residents->where("purok",$this->search_key);
 
         return $residents;
     }

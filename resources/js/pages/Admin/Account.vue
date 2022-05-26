@@ -48,7 +48,7 @@
                             ></v-text-field>
 
                             <v-text-field
-                                v-model="form.location.address"
+                                v-model="form.address"
                                 label="Address"
                                 name="address"
                                 prepend-icon="map"
@@ -110,6 +110,7 @@ import LocationSelector from '../../components/LocationMapSelector.vue'
             name: '',
             email: '',
             password: null,
+            address : '',
             password_confirmation: null,
             location: {
                 address : '',
@@ -132,6 +133,7 @@ import LocationSelector from '../../components/LocationMapSelector.vue'
                 this.form.id = data.id
                 this.form.name = data.name
                 this.form.email = data.email
+                this.form.address = data.address
                 this.form.location = {
                     address : data.address,
                     position : {

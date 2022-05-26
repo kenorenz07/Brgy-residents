@@ -24,7 +24,7 @@ class AuthController extends Controller
             "name" => $request->name,
             "email" => $request->email,
             "password" => bcrypt($request->password),
-            "address" => $request->location['address'],
+            "address" => $request->address,
             "long" => $request->location['position']['lng'],
             "lat" => $request->location['position']['lat'],
         ]);
@@ -43,7 +43,7 @@ class AuthController extends Controller
         $user->update([
             "name" => $request->name,
             "email" => $request->email,
-            "address" => $request->location['address'],
+            "address" => $request->address,
             "long" => $request->location['position']['lng'],
             "lat" => $request->location['position']['lat'],
         ]);

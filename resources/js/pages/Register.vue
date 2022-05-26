@@ -70,7 +70,7 @@
                                             ></v-text-field>
 
                                             <v-text-field
-                                                v-model="form.location.address"
+                                                v-model="form.address"
                                                 label="Address"
                                                 name="address"
                                                 prepend-icon="map"
@@ -140,6 +140,7 @@ export default {
             email: '',
             password: null,
             password_confirmation: null,
+            address : '',
             location: {
                 address : '',
                 position : {

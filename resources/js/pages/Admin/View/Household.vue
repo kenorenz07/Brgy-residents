@@ -36,7 +36,7 @@
                             type="text"
                         ></v-text-field>
                         <v-text-field
-                            v-model="household.location.address"
+                            v-model="household.address"
                             label="Address"
                             name="address"
                             prepend-icon="map"
@@ -174,6 +174,7 @@ export default {
       return {
         household : {
             number : '',
+            address : '',
             location: {
                 address : '',
                 position : {
@@ -242,12 +243,12 @@ export default {
             this.$admin.get('/household/show/'+this.$route.params.id).then(({data}) =>{
                 this.household = {
                     number : data.number,
+                    address : data.address,
                     location: {
                         position : {
                             lng : data.long,
                             lat : data.lat 
                         },
-                        address : data.address
                     },
                     key: 5
                 }

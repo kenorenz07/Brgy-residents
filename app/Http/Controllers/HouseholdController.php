@@ -112,7 +112,7 @@ class HouseholdController extends Controller
 
         $new_household = $secretary->households()->create([
             "number" => $request->number,
-            "address" => $request->location['address'],
+            "address" => $request->address,
             "long" => $request->location['position']['lng'],
             "lat" => $request->location['position']['lat'],
         ]);
@@ -130,7 +130,7 @@ class HouseholdController extends Controller
 
         $household->update([
             "number" => $request->number,
-            "address" => $request->location['address'],
+            "address" => $request->address,
             "long" => $request->location['position']['lng'],
             "lat" => $request->location['position']['lat'],
         ]);

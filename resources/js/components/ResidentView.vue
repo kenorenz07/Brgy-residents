@@ -31,6 +31,10 @@
                             <p><strong>Age </strong>: {{form.age}} year/s old</p>
                             <p><strong>Civil status </strong>: {{form.civil_status}}</p>
                             <p><strong>Contact number </strong>: {{form.contact_number}}</p>
+                            <p><strong>Blood type </strong>: {{form.blood_type}}</p>
+                            <p><strong>Birth Country </strong>: {{form.birth_country}}</p>
+                            <p><strong>Birth province </strong>: {{form.birth_province}}</p>
+                            <p><strong>Birth city </strong>: {{form.birth_city}}</p>
                           
                         </v-col>
                         <v-col cols=6>

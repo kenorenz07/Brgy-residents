@@ -18,21 +18,42 @@ class ResidentController extends Controller
 
         $residents = Resident::query()->with('household')->whereHas('household',function($query) use($secretary) {
             return $query->where('user_id',$secretary->id);
-        })->where('is_senior_member',$request->query('senior'))
-        ->where('vaccinated',$request->query('vaccinated'))
-        ->where('is_four_pis_member',$request->query('four_p'));
-        
-        
-        // if($request->query('senior') == true) $residents->where('is_senior_member',1);
-        // if($request->query('vaccinated') == true) $residents->where('vaccinated',1);
-        // if($request->query('four_p') == true) $residents->where('is_four_pis_member',1);
+        });
+
+        if($request->query('senior') == 1) {
+            $residents->where('is_senior_member',1);
+
+            if($request->query('search_key'))
+                $residents->where('purok', $request->query('search_key'));
+        }
+        if($request->query('vaccinated') == 1) {
+            if($request->query('senior') != 1)
+                $residents->where('vaccinated',1);
+            else 
+                $residents->orWhere('vaccinated',1);
+
+            if($request->query('search_key'))
+                $residents->where('purok', $request->query('search_key'));
+        }
+        if($request->query('four_p') == 1) {
+            if($request->query('vaccinated') != 1 && $request->query('senior') != 1)
+                $residents->where('is_four_pis_member',1);
+            else
+                $residents->orWhere('is_four_pis_member',1);
+
+            if($request->query('search_key'))
+                $residents->where('purok', $request->query('search_key'));
+        }
+
+        if($request->query('search_key'))
+            $residents->where('purok', $request->query('search_key'));
 
         return $residents->get();
     }
 
     public function download(Request $request)
     {
-        return Excel::download(new ResidentsExport($request->query('senior'),$request->query('four_p'),$request->query('vaccinated')), 'residents.xlsx');
+        return Excel::download(new ResidentsExport($request->query('senior'),$request->query('four_p'),$request->query('vaccinated'),$request->query('search_key')), 'residents.xlsx');
     }
 
     public function create(Household $household,Request $request)
@@ -45,7 +66,6 @@ class ResidentController extends Controller
             "contact_number" => "required",
             "sex" => "required",
             "purok" => "required",
-            "blood_type" => "required",
             "birth_country" => "required",
             "birth_province" => "required",
             "birth_city" => "required",
@@ -62,7 +82,7 @@ class ResidentController extends Controller
             "contact_number" => $request->contact_number,
             "sex" => $request->sex,
             "purok" => $request->purok,
-            "blood_type" => $request->blood_type,
+            "blood_type" => $request->blood_type ? $request->blood_type : 'UNKNOWN',
             "birth_country" => $request->birth_country,
             "birth_province" => $request->birth_province,
             "birth_city" => $request->birth_city,
@@ -86,7 +106,6 @@ class ResidentController extends Controller
             "contact_number" => "required",
             "sex" => "required",
             "purok" => "required",
-            "blood_type" => "required",
             "birth_country" => "required",
             "birth_province" => "required",
             "birth_city" => "required",
@@ -103,7 +122,7 @@ class ResidentController extends Controller
             "contact_number" => $request->contact_number,
             "sex" => $request->sex,
             "purok" => $request->purok,
-            "blood_type" => $request->blood_type,
+            "blood_type" => $request->blood_type ? $request->blood_type : 'UNKNOWN',
             "birth_country" => $request->birth_country,
             "birth_province" => $request->birth_province,
             "birth_city" => $request->birth_city,

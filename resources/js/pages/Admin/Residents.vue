@@ -27,7 +27,13 @@
                 v-model="filter.four_p"
               label="4ps member"
             ></v-switch>
-            
+            <v-text-field
+                v-model="search_key"
+                label="Purok"
+                single-line
+                hide-details
+                class="shrink ml-2"
+            ></v-text-field>
         </v-row>
       <v-text-field
         v-model="search"
@@ -98,10 +104,11 @@ export default {
             lng: 124.595390
         },
         filter : {
-            senior: true,
-            vaccinated: true,
-            four_p: true,
+            senior: false,
+            vaccinated: false,
+            four_p: false,
         },
+        search_key : '',
         residents : [],
         selected_resident : {},
         view_dialog:false
@@ -116,6 +123,11 @@ export default {
             handler (val) {
                 this.initialize()
             }
+        },
+        'search_key' : {
+            handler (val) {
+                this.initialize()
+            }
         }
     },
      methods : {
@@ -125,6 +137,7 @@ export default {
                     senior: this.filter.senior ? 1 : 0,
                     vaccinated: this.filter.vaccinated ? 1 : 0,
                     four_p: this.filter.four_p ? 1 : 0,
+                    search_key : this.search_key
                 }
             }).then(({data}) =>{
                 this.residents = data
@@ -146,6 +159,7 @@ export default {
                     senior: this.filter.senior ? 1 : 0,
                     vaccinated: this.filter.vaccinated ? 1 : 0,
                     four_p: this.filter.four_p ? 1 : 0,
+                    search_key : this.search_key
                 }
             })
             .then(response => {

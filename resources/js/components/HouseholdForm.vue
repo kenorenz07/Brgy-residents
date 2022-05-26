@@ -38,7 +38,7 @@
                         type="text"
                     ></v-text-field>
                     <v-text-field
-                        v-model="form.location.address"
+                        v-model="form.address"
                         label="Address"
                         name="address"
                         prepend-icon="map"
@@ -102,6 +102,7 @@ export default {
             type: Object,
             default: {
                 number : '',
+                address : '',
                 location: {
                     address : '',
                     position : {

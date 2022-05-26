@@ -139,7 +139,7 @@
                     <v-select
                         v-model="form.blood_type"
                         :items="blood_types"
-                        label="Blood type*"
+                        label="Blood type"
                     ></v-select>
                     <v-checkbox
                         v-model="form.vaccinated"
