@@ -117,6 +117,15 @@ export default {
         this.$emit("input", { position: value, address: this.address });
       }
     },
+    household_location : {
+      immediate :true,
+      deep :true,
+      handler(value){
+        this.position = this.household_location;
+
+        this.getMarkers()
+      }
+    },
     household_id : {
       handler(value){
         this.position = this.household_location;

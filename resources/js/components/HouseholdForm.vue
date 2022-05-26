@@ -123,6 +123,10 @@ export default {
     data: () => ({
     
     }),
+    mounted () {
+      console.log(this.$refs,'ress')
+      this.$refs.locationSelector.setPositionMarkerLocation()
+    },
     methods : {
       refreshMarkers() {
         this.$refs.locationSelector.getMarkers()

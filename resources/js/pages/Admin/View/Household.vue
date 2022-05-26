@@ -14,7 +14,7 @@
                             <span>Double click to select location or Search</span>
                         </v-flex>
                         <div style="width:100%;height: 300px">
-                            <LocationSelector v-model="household.location" :key="household.key" :household_location="household_location" :household_id="household_data.id" />
+                            <LocationSelector ref="locationSelector" v-model="household.location" :key="household.key" :household_location="household_location" :household_id="household_data.id" />
                         </div>
                     </v-sheet>
                 </v-col>

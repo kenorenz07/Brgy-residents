@@ -105,7 +105,7 @@
                                                 <span>Double click to select location or Search</span>
                                             </v-flex>
                                             <div style="width:100%;height: 500px">
-                                                <LocationSelector v-model="form.location" :key="form.key" />
+                                                <LocationSelector v-model="form.location" :key="form.key" :household_location="user_location"/>
                                             </div>
                                         </v-sheet>
                                     </v-col>
@@ -148,9 +148,21 @@ export default {
                 }
             },
             key: 1
+        },
+        user_location : {
+            lat: 12.067878,
+            lng: 124.595390
         }
     
     }),
+    watch : {
+        'form.location.position' : {
+            deep :true,
+            handler(val) {
+                this.user_location = val
+            }
+        }
+    },
     methods : {
         register(){
             this.$admin.post('/register',this.form).then(({data}) => {
